@@ -17,6 +17,7 @@ public class ClinkerBiomes {
     public static final ResourceKey<Biome> LOWER_SHELF = register("lower_shelf");
     public static final ResourceKey<Biome> BRINE_SWAMP = register("brine_swamp");
     public static final ResourceKey<Biome> HEATH = register("heath");
+    public static final ResourceKey<Biome> CALAMINE_EGG_POOLS = register("calamine_egg_pools");
 
     public static final ResourceKey<Biome> UNDERGROUND = register("underground");
     public static final ResourceKey<Biome> AQUIFER = register("aquifer");

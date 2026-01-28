@@ -2,6 +2,7 @@ package birsy.clinker.core.registry.worldgen;
 
 import birsy.clinker.common.world.level.gen.content.surface.shaper.AshSteppeSurfaceShaper;
 import birsy.clinker.common.world.level.gen.content.surface.shaper.BrineSwampSurfaceShaper;
+import birsy.clinker.common.world.level.gen.content.surface.shaper.CalamineEggPoolsSurfaceShaper;
 import birsy.clinker.common.world.level.gen.content.surface.shaper.HeathSurfaceShaper;
 import birsy.clinker.common.world.level.gen.system.surface.shaper.BiomeSurfaceShaper;
 import birsy.clinker.common.world.level.gen.system.surface.shaper.DefaultSurfaceShaper;
@@ -29,6 +30,8 @@ public class ClinkerSurfaceShapers {
             register("brine_swamp", ClinkerBiomes.BRINE_SWAMP, new BrineSwampSurfaceShaper());
     public static final Supplier<BiomeSurfaceShaper> HEATH =
             register("heath", ClinkerBiomes.HEATH, new HeathSurfaceShaper());
+    public static final Supplier<BiomeSurfaceShaper> CALAMINE_EGG_POOLS =
+            register("calamine_egg_pools", ClinkerBiomes.CALAMINE_EGG_POOLS, new CalamineEggPoolsSurfaceShaper());
 //    public static final BiomeShaper ASH_STEPPE = register(ClinkerBiomes.ASH_STEPPE, new AshSteppeBiomeShaper());
 //    public static final BiomeShaper BRINE_SWAMP = register(ClinkerBiomes.BRINE_SWAMP, new BrineSwampBiomeShaper());
 //

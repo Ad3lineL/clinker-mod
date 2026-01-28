@@ -1,5 +1,5 @@
 {
-  "feature": "clinker:patch_spotweed",
+  "feature": "clinker:patch_yellow_tormentils",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,16 +7,12 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "weight": 1,
+            "weight": 34,
             "data": 0
           },
           {
             "weight": 5,
             "data": 1
-          },
-          {
-            "weight": 4,
-            "data": 5
           }
         ]
       }
@@ -39,15 +35,8 @@
           -1,
           0
         ],
-        "blocks": "clinker:peat_moss"
+        "blocks": "clinker:calamine"
       }
-    },
-    {
-      "type": "clinker:heightmap_steepness_filter",
-      "heightmap": "OCEAN_FLOOR",
-      "max_gradient_inclusive": 2,
-      "inverted": true,
-      "radius": 2
     },
     {
       "type": "minecraft:biome"

@@ -19,4 +19,8 @@ public class ClinkerProtoBiomes {
             PROTO_BIOMES.register("lower_shelf", () -> new ProtoBiome(ClinkerBiomes.BRINE_SWAMP));
     public static final Supplier<ProtoBiome> HEATH =
             PROTO_BIOMES.register("heath", () -> new ProtoBiome(ClinkerBiomes.HEATH));
+    public static final Supplier<ProtoBiome> CALAMINE_EGG_POOLS =
+            PROTO_BIOMES.register("calamine_egg_pools", () -> new ProtoBiome(ClinkerBiomes.CALAMINE_EGG_POOLS));
+    public static final Supplier<ProtoBiome> BEACH =
+            PROTO_BIOMES.register("beach", () -> new ProtoBiome());
 }

@@ -20,7 +20,7 @@ public class DefaultSurfaceShaper extends SurfaceShaper {
     }
 
     @Override
-    public int upperBound() { return 8; }
+    public int upperBound() { return 16; }
     @Override
-    public int lowerBound() { return -8; }
+    public int lowerBound() { return -16; }
 }

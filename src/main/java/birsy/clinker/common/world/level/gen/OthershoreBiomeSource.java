@@ -9,6 +9,7 @@ import birsy.clinker.common.world.level.gen.system.noise.NoiseFieldCache;
 import birsy.clinker.common.world.level.gen.system.noise.SeededNoiseHolderHolder;
 import birsy.clinker.common.world.level.gen.system.noise.UncachedNoiseContext;
 import birsy.clinker.common.world.level.gen.system.surface.shaper.SurfaceShaperSystem;
+import birsy.clinker.core.Clinker;
 import birsy.clinker.core.registry.ClinkerRegistries;
 import birsy.clinker.core.registry.worldgen.ClinkerBiomes;
 import birsy.clinker.core.registry.worldgen.ClinkerNoiseComputers;
@@ -89,6 +90,16 @@ public class OthershoreBiomeSource extends BiomeSource {
                         return ClinkerProtoBiomes.LOWER_SHELF.get();
                     return ClinkerProtoBiomes.UPPER_SHELF.get();
                 })
+                .layer(new BiomeLayerOperations.Surround(ClinkerProtoBiomes.LOWER_SHELF.get(),
+                        ClinkerProtoBiomes.BEACH.get()
+                ),
+                        new BiomeLayerOperations.Mutate(ClinkerProtoBiomes.BEACH.get(),
+                                SimpleWeightedRandomList.<ProtoBiome>builder()
+                                        .add(ClinkerProtoBiomes.UPPER_SHELF.get(), 10)
+                                        .add(ClinkerProtoBiomes.CALAMINE_EGG_POOLS.get(), 10)
+                                        .build()
+                                )
+                )
                 .layer(new BiomeLayerOperations.Mutate(ClinkerProtoBiomes.UPPER_SHELF.get(),
                           SimpleWeightedRandomList.<ProtoBiome>builder()
                                   .add(ClinkerProtoBiomes.UPPER_SHELF.get(), 10)
