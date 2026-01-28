@@ -39,4 +39,6 @@ public class ClinkerFeatures {
             FEATURES.register("peat_moss_blob", () -> new PeatBlobFeature(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<NoneFeatureConfiguration>> CALAMINE_EGG =
             FEATURES.register("calamine_egg", () -> new CalamineEggFeature(NoneFeatureConfiguration.CODEC));
+    public static final Supplier<Feature<SurfaceBlobFeature.SurfaceBlobConfiguration>> SURFACE_BLOB =
+            FEATURES.register("surface_blob", () -> new SurfaceBlobFeature(SurfaceBlobFeature.SurfaceBlobConfiguration.CODEC));
 }
