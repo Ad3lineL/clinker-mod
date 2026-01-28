@@ -35,8 +35,6 @@ public class ClinkerFeatures {
             FEATURES.register("fluid_crack", () -> new FluidCrackFeature(FluidCrackFeature.FluidCrackConfiguration.CODEC));
     public static final Supplier<Feature<PoolFeature.PoolFeatureConfiguration>> POOL =
             FEATURES.register("pool", () -> new PoolFeature(PoolFeature.PoolFeatureConfiguration.CODEC));
-    public static final Supplier<Feature<NoneFeatureConfiguration>> PEAT_MOSS =
-            FEATURES.register("peat_moss_blob", () -> new PeatBlobFeature(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<NoneFeatureConfiguration>> CALAMINE_EGG =
             FEATURES.register("calamine_egg", () -> new CalamineEggFeature(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<SurfaceBlobFeature.SurfaceBlobConfiguration>> SURFACE_BLOB =

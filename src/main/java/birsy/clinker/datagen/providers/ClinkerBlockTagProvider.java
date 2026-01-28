@@ -73,7 +73,7 @@ public class ClinkerBlockTagProvider extends BlockTagsProvider {
         usesHoe.add(ClinkerBlocks.PEAT_MOSS.get());
 
         usesAxe.add(ClinkerBlocks.SPOTREED.get());
-        usesHoe.add(ClinkerBlocks.SPOTREED.get());
+        usesSword.add(ClinkerBlocks.SPOTREED.get());
 
         for (DeferredHolder<Block, ? extends Block> block : ClinkerBlocks.BLOCKS.getEntries()) {
             String name = block.getRegisteredName().toLowerCase();
