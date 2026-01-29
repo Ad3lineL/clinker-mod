@@ -24,29 +24,27 @@ public class CalamineEggPoolsSurfaceDecorator extends SurfaceDecorator {
     public void prefillNoiseFields(NoiseFieldCache cache) {
         cache.fillNoiseField(BASE_NOISE_2D[3]);
         cache.fillNoiseField(BASE_NOISE_2D[4]);
-        cache.fillNoiseField(BASE_NOISE_2D_ALT[5]);
-        cache.fillNoiseField(BASE_NOISE_2D[6]);
-        cache.fillNoiseField(BASE_NOISE_2D[7]);
-        cache.fillNoiseField(BASE_NOISE_2D_ALT[7]);
-        cache.fillNoiseField(BASE_NOISE_2D[8]);
+        cache.fillNoiseField(BASE_NOISE_2D_ALT[4]);
     }
 
     @Override
 
     public void decorateSurface(BlockPos.MutableBlockPos pos, int seaLevel, ChunkAccess chunk, NoiseContext noiseContext, RandomSource random, SurfaceDecorationContext surfaceContext) {
         int x = pos.getX(), z = pos.getZ();
-        double wiggleNoise = noiseContext.retrieve(BASE_NOISE_2D[3], x, 0, z);
-        double wobbleNoise = noiseContext.retrieve(BASE_NOISE_2D[4], x, 0, z);
+        double wiggleNoise = (noiseContext.retrieve(BASE_NOISE_2D[4], x, 0, z) + 0.8) * (noiseContext.retrieve(BASE_NOISE_2D[3], x, 0, z) + 0.1 );
+        double wobbleNoise = noiseContext.retrieve(BASE_NOISE_2D_ALT[4], x, 0, z);
+
+        BlockState fluidType = Blocks.GRAY_CONCRETE.defaultBlockState();
 
         BlockState rockType = ClinkerBlocks.CALAMINE.get().defaultBlockState();
         if (wobbleNoise - 0.4 + random.triangle(0, 0.35) > 0) {
             rockType = ClinkerBlocks.BRIMSTONE.get().defaultBlockState();
         }
 
-        BlockState sedimentType = Blocks.WATER.defaultBlockState();
-        if (wiggleNoise - 0.4 + random.triangle(0, 0.25) > 0) {
+        BlockState sedimentType = fluidType;
+        if (wiggleNoise - 0.5 + random.triangle(0, 0.25) > 0) {
             sedimentType = ClinkerBlocks.ASHEN_REGOLITH.get().defaultBlockState();
-        } else if (wiggleNoise - 0.1 + random.triangle(0, 0.25) > 0) {
+        } else if (wiggleNoise - 0.3 + random.triangle(0, 0.25) > 0) {
             sedimentType = rockType;
         }
 
@@ -54,9 +52,16 @@ public class CalamineEggPoolsSurfaceDecorator extends SurfaceDecorator {
                 maxElevationIncrease = surfaceContext.maxElevationIncrease();
 
         boolean isBorder = Math.max(maxElevationDecrease, maxElevationDecrease) >= 1;
+        boolean isLedge = Math.max(maxElevationIncrease, maxElevationIncrease) >= 1;
 
         if (isBorder) {
             chunk.setBlockState(pos, rockType, false);
+        } else if (isLedge) {
+            chunk.setBlockState(pos, fluidType, false);
+            if (wiggleNoise + 0.1 + random.triangle(0, 0.25) > 0) {
+                chunk.setBlockState(pos, rockType, false);
+            }
+
         } else {
             chunk.setBlockState(pos, sedimentType, false);
         }

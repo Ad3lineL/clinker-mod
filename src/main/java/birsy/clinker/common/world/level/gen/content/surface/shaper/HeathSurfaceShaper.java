@@ -14,7 +14,7 @@ public class HeathSurfaceShaper extends SimpleSurfaceShaper {
 
     @Override
     public double getHeight(int x, int z, double weight, NoiseContext context) {
-        return (150 + context.retrieve(BASE_NOISE_2D_ALT[9], x, 0, z) * 10) * weight;
+        return (140 + context.retrieve(BASE_NOISE_2D_ALT[9], x, 0, z) * 10) * weight;
     }
 
     @Override
@@ -32,6 +32,7 @@ public class HeathSurfaceShaper extends SimpleSurfaceShaper {
 
         double cliff0Fac = context.retrieve(BASE_NOISE_2D[6], x, 0, z);
         double cliff0 = Math.pow(Math.abs(cliff0Fac), 1 / 12.0) * Math.signum(cliff0Fac) * 8;
+
 
         double cliff1Fac = context.retrieve(BASE_NOISE_2D_ALT[7], x, 0, z) - 0.5;
         double cliff1 = Math.pow(Math.abs(cliff1Fac), 1 / 24.0) * Math.signum(cliff1Fac) * 30;

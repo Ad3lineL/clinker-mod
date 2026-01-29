@@ -650,6 +650,8 @@ public class ClinkerBlockStateProvider extends BlockStateProvider {
                 );
                 this.flatBlockItem(YELLOW_TORMENTIL.get(), this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + tormentilYellowName + "_item"));
             }
+            // molds
+
         }
 
         // stromatolites
