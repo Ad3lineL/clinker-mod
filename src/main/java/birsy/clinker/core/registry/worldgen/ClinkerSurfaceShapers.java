@@ -5,6 +5,7 @@ import birsy.clinker.common.world.level.gen.content.surface.shaper.BrineSwampSur
 import birsy.clinker.common.world.level.gen.content.surface.shaper.CalamineEggPoolsSurfaceShaper;
 import birsy.clinker.common.world.level.gen.content.surface.shaper.HeathSurfaceShaper;
 import birsy.clinker.common.world.level.gen.content.surface.shaper.SnakesSurfaceShaper;
+import birsy.clinker.common.world.level.gen.content.surface.shaper.*;
 import birsy.clinker.common.world.level.gen.system.surface.shaper.BiomeSurfaceShaper;
 import birsy.clinker.common.world.level.gen.system.surface.shaper.DefaultSurfaceShaper;
 import birsy.clinker.common.world.level.gen.system.surface.shaper.SurfaceShaper;
@@ -33,6 +34,8 @@ public class ClinkerSurfaceShapers {
             register("heath", ClinkerBiomes.HEATH, new HeathSurfaceShaper());
     public static final Supplier<BiomeSurfaceShaper> CALAMINE_EGG_POOLS =
             register("calamine_egg_pools", ClinkerBiomes.CALAMINE_EGG_POOLS, new CalamineEggPoolsSurfaceShaper());
+    public static final Supplier<BiomeSurfaceShaper> HEATH_THICKET =
+            register("heath_thicket", ClinkerBiomes.HEATH_THICKET, new HeathThicketSurfaceShaper());
     public static final Supplier<BiomeSurfaceShaper> BRINE_SNAKES =
             register("brine_snakes", ClinkerBiomes.BRINE_SNAKES, new SnakesSurfaceShaper());
 //    public static final BiomeShaper ASH_STEPPE = register(ClinkerBiomes.ASH_STEPPE, new AshSteppeBiomeShaper());

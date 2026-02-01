@@ -28,6 +28,8 @@ public class ClinkerSurfaceDecorators {
             register("heath", ClinkerBiomes.HEATH, new HeathSurfaceDecorator());
     public static final Supplier<BiomeSurfaceDecorator> CALAMINE_EGG_POOLS =
             register("calamine_egg_pools", ClinkerBiomes.CALAMINE_EGG_POOLS, new CalamineEggPoolsSurfaceDecorator());
+    public static final Supplier<BiomeSurfaceDecorator> HEATH_THICKET =
+            register("heath_thicket", ClinkerBiomes.HEATH_THICKET, new HeathSurfaceDecorator());
     public static final Supplier<BiomeSurfaceDecorator> BRINE_SNAKES =
             register("brine_snakes", ClinkerBiomes.BRINE_SNAKES, new SnakesSurfaceDecorator());
 //    public static final Supplier<BiomeSurfaceDecorator> BRINE_SWAMP =
