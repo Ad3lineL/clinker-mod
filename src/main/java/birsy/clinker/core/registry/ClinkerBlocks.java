@@ -9,15 +9,19 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.feature.WaterloggedVegetationPatchFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
@@ -69,6 +73,10 @@ public class ClinkerBlocks
             .strength(2.75F, 75.0F)
             .sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops())
     );
+    //new LeavesBlock(Properties.of().mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(soundType).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never))
+
+    //public static final DeferredBlock<Block> SALTBRUSH = createBlock("saltbrush", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BRIMSTONE.get())));
+
     public static final DeferredBlock<Block> BRIMSTONE_SLAB = createBlock("brimstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BRIMSTONE.get())));
     public static final DeferredBlock<Block> BRIMSTONE_STAIRS = createBlock("brimstone_stairs", () -> new StairBlock(BRIMSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BRIMSTONE.get())));
     public static final DeferredBlock<Block> BRIMSTONE_WALL = createBlock("brimstone_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(BRIMSTONE.get())));
@@ -123,6 +131,12 @@ public class ClinkerBlocks
     public static final DeferredBlock<ColoredFallingBlock> SALT_GRAVEL = createBlock("salt_gravel",
             () -> new ColoredFallingBlock(new ColorRGBA(0x777472), BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL).sound(SoundType.SOUL_SOIL))
     );
+
+//    public static final DeferredBlock<Block> WATER_FERN = createBlockNoItem("water_fern", () -> new WaterFernBlock(
+//            BlockBehaviour.Properties.of()
+//                    .instabreak().replaceable()
+//                    .mapColor(MapColor.PLANT).sound(SoundType.BIG_DRIPLEAF).pushReaction(PushReaction.DESTROY)
+//                    .noOcclusion().noCollission().noLootTable()));
 
     public static final DeferredBlock<SeaShellBlock> SEA_SHELL = createBlock("sea_shell", () -> new SeaShellBlock(
             BlockBehaviour.Properties.of()
@@ -346,6 +360,16 @@ public class ClinkerBlocks
                             .speedFactor(0.5F)
                             .pushReaction(PushReaction.DESTROY)
             ));
+    public static final DeferredBlock<Block> SALTY_STEM = createBlock("salty_stem", () ->
+            new ThornyStemBlock(
+                    BlockBehaviour.Properties.of()
+                            .noCollission()
+                            .strength(4.0F)
+                            .mapColor(MapColor.TERRACOTTA_BLACK)
+                            .sound(SoundType.HANGING_ROOTS)
+                            .speedFactor(0.45F)
+                            .pushReaction(PushReaction.DESTROY)
+            ));
 
     public static final DeferredBlock<BrambleBlossomBlock> BRAMBLE_BLOSSOM = createBlock("bramble_blossom", () ->
             new BrambleBlossomBlock(
@@ -360,10 +384,28 @@ public class ClinkerBlocks
                             .mapColor(MapColor.COLOR_BLACK)
             ));
 
+    public static final DeferredBlock<CorpseLilyBudBlock> CORPSE_LILY_BUD = createBlock("corpse_lily_bud",
+            () -> new CorpseLilyBudBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PUMPKIN).randomTicks().strength(0.5F).mapColor(MapColor.COLOR_RED).sound(SoundType.NETHER_SPROUTS)));
+    public static final DeferredBlock<CorpseLilyBulbBlock> CORPSE_LILY_BULB = createBlock("corpse_lily_bulb",
+            () -> new CorpseLilyBulbBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PUMPKIN).randomTicks().mapColor(MapColor.COLOR_RED).sound(SoundType.WART_BLOCK)));
+    public static final DeferredBlock<CorpseLilyPetalBlock> CORPSE_LILY_PETAL = createBlock("corpse_lily_petal",
+            () -> new CorpseLilyPetalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PUMPKIN).strength(0.75F).mapColor(MapColor.COLOR_RED).sound(SoundType.WART_BLOCK)));
+
+    public static final DeferredBlock<MothBallBlock> MOTH_BALL = createBlock("moth_ball",
+            () -> new MothBallBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY)
+                    .strength(0.1F)
+                    .mapColor(MapColor.TERRACOTTA_WHITE)
+                    .sound(SoundType.WOOL)
+                    .offsetType(BlockBehaviour.OffsetType.XYZ)
+                    .dynamicShape())
+    );
+
     public static final DeferredBlock<OthershorePlantBlock> SALTMOSS_SPROUTS = createBlock("saltmoss_sprouts", () -> new OthershorePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).mapColor(MapColor.COLOR_RED).sound(SoundType.HANGING_ROOTS)));
     public static final DeferredBlock<OthershorePlantBlock> DRIED_SALTMOSS_SPROUTS = createBlock("dried_saltmoss_sprouts", () -> new OthershorePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).mapColor(MapColor.COLOR_RED).sound(SoundType.HANGING_ROOTS)));
     public static final DeferredBlock<SaltmossBlossomBlock> SALTMOSS_BLOSSOM = createBlock("saltmoss_blossom", () -> new SaltmossBlossomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).mapColor(MapColor.COLOR_RED).sound(SoundType.HANGING_ROOTS)));
-    public static final DeferredBlock<OthershorePlantBlock> YARROW = createBlock("yarrow", () -> new SaltmossBlossomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).mapColor(MapColor.COLOR_YELLOW).sound(SoundType.HANGING_ROOTS)));
+    public static final DeferredBlock<SaltmossBlossomBlock> YARROW = createBlock("yarrow", () -> new SaltmossBlossomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).mapColor(MapColor.COLOR_YELLOW).sound(SoundType.HANGING_ROOTS)));
     public static final DeferredBlock<OthershorePlantBlock> CAVE_SPROUTS = createBlock("cave_sprouts", () -> new OthershorePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_SPROUTS).mapColor(MapColor.COLOR_BROWN).sound(SoundType.AZALEA_LEAVES)));
 
     private static Supplier<BlockBehaviour.Properties> STROMATOLITE_PROPERTIES = () -> {
@@ -403,10 +445,11 @@ public class ClinkerBlocks
     public static final DeferredBlock<OthershorePlantBlock> INDIGO_TORMENTIL = createBlock("indigo_tormentil", () -> new OthershorePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.PINK_PETALS)));
     public static final DeferredBlock<OthershorePlantBlock> YELLOW_TORMENTIL = createBlock("yellow_tormentil", () -> new OthershorePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION).mapColor(MapColor.COLOR_YELLOW).sound(SoundType.PINK_PETALS)));
 
-    public static final DeferredBlock<SpotreedBlock> SPOTREED = createBlock("spotreed", () -> new SpotreedBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO).mapColor(MapColor.CRIMSON_STEM).sound(SoundType.SPONGE)
+    public static final DeferredBlock<SpotreedBlock> SPOTREED = createBlock("spotreed", () -> new SpotreedBlock(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO).mapColor(MapColor.CRIMSON_STEM).sound(SoundType.FUNGUS)
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY)
-            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .offsetType(BlockBehaviour.OffsetType.XYZ)
     ));
 
     // fluids
@@ -431,8 +474,7 @@ public class ClinkerBlocks
         return block;
     }
 
-    public static DeferredBlock<Block> createBlockNoItem(String name, final Supplier<? extends Block> supplier) {
-        DeferredBlock<Block> block = BLOCKS.register(name, supplier);
-        return block;
+    public static <T extends Block> DeferredBlock<T> createBlockNoItem(String name, final Supplier<T> supplier) {
+        return BLOCKS.register(name, supplier);
     }
 }

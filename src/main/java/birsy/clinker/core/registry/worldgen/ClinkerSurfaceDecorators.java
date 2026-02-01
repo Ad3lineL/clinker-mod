@@ -4,6 +4,7 @@ import birsy.clinker.common.world.level.gen.content.surface.decorator.AshSteppeS
 import birsy.clinker.common.world.level.gen.content.surface.decorator.BrineSwampSurfaceDecorator;
 import birsy.clinker.common.world.level.gen.content.surface.decorator.CalamineEggPoolsSurfaceDecorator;
 import birsy.clinker.common.world.level.gen.content.surface.decorator.HeathSurfaceDecorator;
+import birsy.clinker.common.world.level.gen.content.surface.decorator.SnakesSurfaceDecorator;
 import birsy.clinker.common.world.level.gen.system.surface.decorator.BiomeSurfaceDecorator;
 import birsy.clinker.common.world.level.gen.system.surface.decorator.SurfaceDecorator;
 import birsy.clinker.core.Clinker;
@@ -27,6 +28,14 @@ public class ClinkerSurfaceDecorators {
             register("heath", ClinkerBiomes.HEATH, new HeathSurfaceDecorator());
     public static final Supplier<BiomeSurfaceDecorator> CALAMINE_EGG_POOLS =
             register("calamine_egg_pools", ClinkerBiomes.CALAMINE_EGG_POOLS, new CalamineEggPoolsSurfaceDecorator());
+    public static final Supplier<BiomeSurfaceDecorator> BRINE_SNAKES =
+            register("brine_snakes", ClinkerBiomes.BRINE_SNAKES, new SnakesSurfaceDecorator());
+//    public static final Supplier<BiomeSurfaceDecorator> BRINE_SWAMP =
+//            register("brine_swamp", ClinkerBiomes.BRINE_SWAMP, new BrineSwampSurfaceDecorator());
+//    public static final Supplier<BiomeSurfaceDecorator> UNDERGROUND =
+//            register("underground", ClinkerBiomes.UNDERGROUND, new DefaultSurfaceDecorator());
+//    public static final Supplier<BiomeSurfaceDecorator> AQUIFER =
+//            register("aquifer", ClinkerBiomes.AQUIFER, new DefaultSurfaceDecorator());
 
     public static Supplier<BiomeSurfaceDecorator> register(String name, ResourceKey<Biome> biome, SurfaceDecorator decorator) {
         return SURFACE_DECORATORS.register(name, () -> new BiomeSurfaceDecorator(biome, decorator));

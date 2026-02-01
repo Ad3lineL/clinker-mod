@@ -1,15 +1,21 @@
 package birsy.clinker.datagen.providers;
 
-import birsy.clinker.common.world.block.plant.DoubleSheetMossBlock;
-import birsy.clinker.common.world.block.plant.StromatoliteBlock;
+import birsy.clinker.common.world.block.MothBallBlock;
+import birsy.clinker.common.world.block.plant.*;
 import birsy.clinker.core.Clinker;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
+import net.neoforged.neoforge.client.model.CompositeModel;
 import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.function.Function;
@@ -474,6 +480,7 @@ public class ClinkerBlockStateProvider extends BlockStateProvider {
             }, 2);
             this.flatBlockItem(WITHERING_BRAMBLE_BLOSSOM.get());
             this.itemModels().basicItem(THORNY_STEM.get().asItem());
+            this.itemModels().basicItem(SALTY_STEM.get().asItem());
 
             this.simpleBlock(SHEET_MOSS.get(),
                     this.models().singleTexture(name(SHEET_MOSS.get()),
@@ -628,6 +635,50 @@ public class ClinkerBlockStateProvider extends BlockStateProvider {
             );
             this.flatBlockItem(PEAT_MOSS_BUDS.get());
 
+            // spotreed
+            {
+                String spotreedName = name(SPOTREED.get());
+                ResourceLocation spotreedParticle = this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + spotreedName + "_particle");
+                ResourceLocation spotreedTemplate = this.modLoc(ModelProvider.BLOCK_FOLDER + "/template_" + spotreedName);
+
+                VariantBlockStateBuilder.PartialBlockstate state = this.getVariantBuilder(SPOTREED.get()).partialState().with(SpotreedBlock.LIT, false);
+                for (int i = 0; i < 8; i++) {
+                    String suffix = i == 0 ? "" : ("_" + i);
+                    state.addModels(
+                            ConfiguredModel.builder().modelFile(
+                                    this.models().withExistingParent(spotreedName + suffix, spotreedTemplate)
+                                            .texture("stalk", this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + spotreedName + "_stalk" + suffix))
+                                            .texture("end", this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + spotreedName + "_end"))
+                                            .texture("particle", spotreedParticle)
+                            ).buildLast()
+                    );
+                }
+                state = state.partialState().with(SpotreedBlock.LIT, true);
+
+                ResourceLocation spotreedGlowTemplate = this.modLoc(ModelProvider.BLOCK_FOLDER + "/template_" + spotreedName + "_glow");
+                ResourceLocation spotreedTipTemplate = this.modLoc(ModelProvider.BLOCK_FOLDER + "/template_" + spotreedName + "_tip");
+
+                for (int i = 0; i < 8; i++) {
+                    String suffix = i == 0 ? "" : ("_" + i);
+                    state.addModels(
+                            ConfiguredModel.builder().modelFile(
+                                    this.models().getBuilder(ModelProvider.BLOCK_FOLDER + "/spotreed_tip" + suffix)
+                                            .texture("particle", spotreedParticle)
+                                            .customLoader(CompositeModelBuilder::begin)
+                                            .child("stalk",
+                                                    this.models().withExistingParent(spotreedName + "_tip_stalk" + suffix, spotreedTipTemplate)
+                                                            .texture("stalk", this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + spotreedName + "_tip" + suffix))
+                                                            .texture("end", this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + spotreedName + "_end"))
+                                            )
+                                            .child("glow",
+                                                    this.models().withExistingParent(spotreedName + "_glow" + suffix, spotreedGlowTemplate)
+                                                            .texture("glow", this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + spotreedName + "_glow" + suffix))
+                                            ).end()
+                            ).buildLast()
+                    );
+                }
+            }
+
             // tormentil
             {
                 String tormentilIndigoName = name(INDIGO_TORMENTIL.get());
@@ -674,8 +725,83 @@ public class ClinkerBlockStateProvider extends BlockStateProvider {
         }
 
         // spotweed
-        String spotreedName = name(SPOTREED.get());
-        this.flatBlockItem(SPOTREED.get(), this.modLoc(ModelProvider.ITEM_FOLDER + "/" + spotreedName));
+        {
+            String spotreedName = name(SPOTREED.get());
+            this.flatBlockItem(SPOTREED.get(), this.modLoc(ModelProvider.ITEM_FOLDER + "/" + spotreedName));
+        }
+
+        // corpse lily
+        {
+            ModelFile.ExistingModelFile rootsOverlayModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/corpse_lily_overlay"));
+
+            String budName = name(CORPSE_LILY_BUD.get());
+            ModelFile.ExistingModelFile budModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + budName));
+            getMultipartBuilder(CORPSE_LILY_BUD.get())
+                    .part()
+                    .modelFile(budModel).nextModel()
+                    .modelFile(budModel).rotationY(90).nextModel()
+                    .modelFile(budModel).rotationY(180).nextModel()
+                    .modelFile(budModel).rotationY(270).addModel()
+                    .end()
+                    .part()
+                    .modelFile(rootsOverlayModel).addModel()
+                    .condition(CorpseLilyCenterBlock.DOWN, true)
+                    .end();
+
+            String bulbName = name(CORPSE_LILY_BULB.get());
+            ModelFile.ExistingModelFile bulbModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + bulbName));
+            getMultipartBuilder(CORPSE_LILY_BULB.get())
+                    .part()
+                    .modelFile(bulbModel).nextModel()
+                    .modelFile(bulbModel).rotationY(90).nextModel()
+                    .modelFile(bulbModel).rotationY(180).nextModel()
+                    .modelFile(bulbModel).rotationY(270).addModel()
+                    .end()
+                    .part()
+                    .modelFile(rootsOverlayModel).addModel()
+                    .condition(CorpseLilyCenterBlock.DOWN, true)
+                    .end();
+            this.flatBlockItem(CORPSE_LILY_BULB.get(), this.modLoc(ModelProvider.ITEM_FOLDER + "/" + bulbName));
+
+            String petalName = name(CORPSE_LILY_PETAL.get());
+            ModelFile.ExistingModelFile bloomedPetalModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + petalName + "_bloomed"));
+            ModelFile.ExistingModelFile unbloomedPetalModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + petalName + "_unbloomed"));
+            getVariantBuilder(CORPSE_LILY_PETAL.get())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.WEST).with(CorpseLilyPetalBlock.BLOOM, false)
+                    .addModels(ConfiguredModel.builder().modelFile(unbloomedPetalModel).build())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.NORTH).with(CorpseLilyPetalBlock.BLOOM, false)
+                    .addModels(ConfiguredModel.builder().modelFile(unbloomedPetalModel).rotationY(90).build())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.EAST).with(CorpseLilyPetalBlock.BLOOM, false)
+                    .addModels(ConfiguredModel.builder().modelFile(unbloomedPetalModel).rotationY(180).build())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.SOUTH).with(CorpseLilyPetalBlock.BLOOM, false)
+                    .addModels(ConfiguredModel.builder().modelFile(unbloomedPetalModel).rotationY(270).build())
+
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.WEST).with(CorpseLilyPetalBlock.BLOOM, true)
+                    .addModels(ConfiguredModel.builder().modelFile(bloomedPetalModel).build())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.NORTH).with(CorpseLilyPetalBlock.BLOOM, true)
+                    .addModels(ConfiguredModel.builder().modelFile(bloomedPetalModel).rotationY(90).build())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.EAST).with(CorpseLilyPetalBlock.BLOOM, true)
+                    .addModels(ConfiguredModel.builder().modelFile(bloomedPetalModel).rotationY(180).build())
+                    .partialState().with(CorpseLilyPetalBlock.FACING, Direction.SOUTH).with(CorpseLilyPetalBlock.BLOOM, true)
+                    .addModels(ConfiguredModel.builder().modelFile(bloomedPetalModel).rotationY(270).build());
+            this.flatBlockItem(CORPSE_LILY_PETAL.get(), this.modLoc(ModelProvider.ITEM_FOLDER + "/" + petalName));
+        }
+
+        // moth ball
+        {
+            String mothBallName = name(MOTH_BALL.get());
+            ModelFile.ExistingModelFile mothBallSingleModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + mothBallName + "_single")),
+                                        mothBallDoubleModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + mothBallName + "_double")),
+                                        mothBallTripleModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + mothBallName + "_triple"));
+            getVariantBuilder(MOTH_BALL.get())
+                    .partialState().with(MothBallBlock.COUNT, 1)
+                    .addModels(ConfiguredModel.allYRotations(mothBallSingleModel, 0, false))
+                    .partialState().with(MothBallBlock.COUNT, 2)
+                    .addModels(ConfiguredModel.allYRotations(mothBallDoubleModel, 0, false))
+                    .partialState().with(MothBallBlock.COUNT, 3)
+                    .addModels(ConfiguredModel.allYRotations(mothBallTripleModel, 0, false));
+            this.flatBlockItem(MOTH_BALL.get(), this.modLoc(ModelProvider.ITEM_FOLDER + "/" + mothBallName));
+        }
     }
 
     public void flatBlockItem(Block block) {

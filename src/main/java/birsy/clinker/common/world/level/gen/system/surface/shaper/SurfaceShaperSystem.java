@@ -171,7 +171,7 @@ public class SurfaceShaperSystem {
         heightmapGradient.byIndex((index) -> heightmapGradientArray[index] = Math.sqrt(squaredHeightmapGradientArray[index]));
 
         // initialize surface density w/ estimate from base surface height
-        NoiseField surfaceDensityField = NoiseFieldTypes.COARSE.create(chunkHeight, 0);
+        NoiseField surfaceDensityField = NoiseFieldTypes.FINE.create(chunkHeight, 0);
         double[] surfaceDensityFieldArray = surfaceDensityField.array();
         Arrays.fill(surfaceDensityFieldArray, 0);
         surfaceDensityField.byBlockPadded(0, lowerBound - minY - 1,
@@ -217,9 +217,11 @@ public class SurfaceShaperSystem {
                     // make sure it only occurs between biomes. surface shapers can take care of intra-biome cliffs
                     double biomeTransitionMask = Math.clamp(biomeTransitionFactorField.retrieve(x, y, z), 0, 1);
 
-                    double cliffRock = ((Math.abs(cliffRockField.retrieve(x, y, z)) * -2 + 1) - 0.2) * cliffSize;
+                    double cliffRock = cliffRockField.retrieve(x, y, z);
+                    cliffRock = Math.round(cliffRock * 3.0) / 3.0;
+                    cliffRock = ((Math.abs(cliffRock) * -2 + 1) - 0.3) * cliffSize;
 
-                    double cliffs = cliffRock * biomeTransitionMask * gradientMask * distanceToHeightmapMask;
+                    double cliffs = cliffRock * biomeTransitionMask * gradientMask * distanceToHeightmapMask * 1.3;
 
                     surfaceDensityFieldArray[index] += cliffs;
                 }
