@@ -3,17 +3,12 @@ package birsy.clinker.datagen.providers;
 import birsy.clinker.common.world.block.MothBallBlock;
 import birsy.clinker.common.world.block.plant.*;
 import birsy.clinker.core.Clinker;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.neoforged.neoforge.client.model.CompositeModel;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -800,6 +795,31 @@ public class ClinkerBlockStateProvider extends BlockStateProvider {
                     .partialState().with(MothBallBlock.COUNT, 3)
                     .addModels(ConfiguredModel.allYRotations(mothBallTripleModel, 0, false));
             this.flatBlockItem(MOTH_BALL.get(), this.modLoc(ModelProvider.ITEM_FOLDER + "/" + mothBallName));
+        }
+
+        // shriveled orchid
+        {
+            String shriveledOrchidName = name(SHRIVELED_ORCHID.get());
+            this.flatBlockItem(SHRIVELED_ORCHID.get(), this.modLoc(ModelProvider.BLOCK_FOLDER + "/shriveled_orchid/" + shriveledOrchidName + "_top"));
+
+            getVariantBuilder(SHRIVELED_ORCHID.get())
+                    .partialState().with(ShriveledOrchidBlock.HALF, DoubleBlockHalf.UPPER)
+                    .addModels(ConfiguredModel.builder().modelFile(this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + shriveledOrchidName + "_top"))).build())
+                    .partialState().with(ShriveledOrchidBlock.HALF, DoubleBlockHalf.LOWER)
+                .addModels(ConfiguredModel.builder().modelFile(this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + shriveledOrchidName + "_bottom"))).build());
+
+            String shriveledRootsName = name(SHRIVELED_ORCHID_ROOTS.get());
+            ModelFile.ExistingModelFile shriveledRootsModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + shriveledRootsName));
+            getVariantBuilder(SHRIVELED_ORCHID_ROOTS.get())
+                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.WEST)
+                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).rotationY(270).build())
+                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.NORTH)
+                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).build())
+                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.EAST)
+                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).rotationY(90).build())
+                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.SOUTH)
+                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).rotationY(180).build());
+            this.flatBlockItem(SHRIVELED_ORCHID_ROOTS.get(), this.modLoc(ModelProvider.BLOCK_FOLDER + "/shriveled_orchid/" + shriveledRootsName + "_platform_top"));
         }
     }
 

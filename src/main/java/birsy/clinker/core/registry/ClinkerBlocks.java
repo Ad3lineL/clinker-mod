@@ -9,19 +9,15 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraft.world.level.levelgen.feature.WaterloggedVegetationPatchFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
@@ -451,6 +447,15 @@ public class ClinkerBlocks
             .pushReaction(PushReaction.DESTROY)
             .offsetType(BlockBehaviour.OffsetType.XYZ)
     ));
+
+    public static final DeferredBlock<ShriveledOrchidBlock> SHRIVELED_ORCHID = createBlockNoItem("shriveled_orchid", () -> new ShriveledOrchidBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).mapColor(MapColor.COLOR_GRAY).sound(SoundType.MUDDY_MANGROVE_ROOTS).instabreak()));
+    public static final DeferredBlock<ShriveledOrchidRootsBlock> SHRIVELED_ORCHID_ROOTS = createBlock("shriveled_orchid_roots", () -> new ShriveledOrchidRootsBlock(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).mapColor(MapColor.COLOR_GRAY).sound(SoundType.MUDDY_MANGROVE_ROOTS)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY)
+                    .instabreak()
+    ));
+
 
     // fluids
     public static DeferredBlock<LiquidBlock> VITRIOL_BLOCK = BLOCKS.register("vitriol", () -> new LiquidBlock(

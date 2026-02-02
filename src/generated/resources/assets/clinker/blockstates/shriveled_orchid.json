@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "clinker:block/shriveled_orchid_bottom"
+    },
+    "half=upper": {
+      "model": "clinker:block/shriveled_orchid_top"
+    }
+  }
+}

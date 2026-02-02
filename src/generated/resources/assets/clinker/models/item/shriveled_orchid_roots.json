@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "clinker:block/shriveled_orchid/shriveled_orchid_roots_platform_top"
+  }
+}

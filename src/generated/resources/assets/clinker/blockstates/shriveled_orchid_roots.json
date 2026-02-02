@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "clinker:block/shriveled_orchid_roots",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "clinker:block/shriveled_orchid_roots"
+    },
+    "facing=south": {
+      "model": "clinker:block/shriveled_orchid_roots",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "clinker:block/shriveled_orchid_roots",
+      "y": 270
+    }
+  }
+}
