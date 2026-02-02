@@ -134,6 +134,7 @@ public class ClinkerItems
 
 
 //    public static final DeferredItem<Item> WATER_FERN_ITEM = ITEMS.register("water_fern", () -> new PlaceOnWaterBlockItem(ClinkerBlocks.WATER_FERN.get(), new Item.Properties()));
+public static final DeferredItem<Item> SHRIVELED_ORCHID_ROOTS_ITEM = ITEMS.register("shriveled_orchid_roots", () -> new PlaceOnWaterBlockItem(ClinkerBlocks.SHRIVELED_ORCHID_ROOTS.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> SHRIVELED_ORCHID_ITEM = ITEMS.register("shriveled_orchid", () -> new PlaceOnWaterBlockItem(ClinkerBlocks.SHRIVELED_ORCHID.get(), new Item.Properties()));
 

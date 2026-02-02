@@ -449,7 +449,7 @@ public class ClinkerBlocks
     ));
 
     public static final DeferredBlock<ShriveledOrchidBlock> SHRIVELED_ORCHID = createBlockNoItem("shriveled_orchid", () -> new ShriveledOrchidBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).mapColor(MapColor.COLOR_GRAY).sound(SoundType.MUDDY_MANGROVE_ROOTS).instabreak()));
-    public static final DeferredBlock<ShriveledOrchidRootsBlock> SHRIVELED_ORCHID_ROOTS = createBlock("shriveled_orchid_roots", () -> new ShriveledOrchidRootsBlock(
+    public static final DeferredBlock<ShriveledOrchidRootsBlock> SHRIVELED_ORCHID_ROOTS = createBlockNoItem("shriveled_orchid_roots", () -> new ShriveledOrchidRootsBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).mapColor(MapColor.COLOR_GRAY).sound(SoundType.MUDDY_MANGROVE_ROOTS)
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY)
