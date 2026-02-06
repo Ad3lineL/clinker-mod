@@ -14,28 +14,24 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClinkerEnglishLanguageProvider extends LanguageProvider {
+    Map<String, String> langData = new HashMap<>();
+
     public ClinkerEnglishLanguageProvider(PackOutput output) {
         super(output, Clinker.MOD_ID, "en_us");
     }
 
     @Override
     protected void addTranslations() {
-        this.add("itemGroup.clinker.clinker", "Clinker");
-        this.add("itemGroup.clinker.pages", "Pages");
-
+        // auto genned stuff
         for (DeferredHolder<Block, ? extends Block> entry : ClinkerBlocks.BLOCKS.getEntries()) {
             this.addBlock(entry, localizedNameFromRegistryName(entry.getId().getPath()));
-
         }
         for (DeferredHolder<Item, ? extends Item> entry : ClinkerItems.ITEMS.getEntries()) {
-            if (entry == ClinkerItems.ALCHEMISTS_CROSSBOW) {
-                this.addItem(entry, "Alchemist's Crossbow");
-            } else if (entry == ClinkerItems.MUSIC_DISC_CODA) {
-                this.addItem(entry, "Music Disc");
-            } else {
-                this.addItem(entry, localizedNameFromRegistryName(entry.getId().getPath()));
-            }
+            this.addItem(entry, localizedNameFromRegistryName(entry.getId().getPath()));
         }
         for (DeferredHolder<EntityType<?>, ? extends EntityType> entry : ClinkerEntities.ENTITY_TYPES.getEntries()) {
             this.addEntityType(entry, localizedNameFromRegistryName(entry.getId().getPath()));
@@ -44,30 +40,40 @@ public class ClinkerEnglishLanguageProvider extends LanguageProvider {
             this.add("biome.clinker." + biome.location().getPath(), localizedNameFromRegistryName(biome.location().getPath()));
         }
 
-        this.add("jukebox_song.clinker.coda", "Squire - CODA");
+        this.add("itemGroup.clinker.clinker", "Clinker");
+        this.add("itemGroup.clinker.pages", "Pages");
 
-        this.add("item.clinker.ordnance.fuse_duration", "Fuse lasts %s seconds");
-
-        this.add("item.clinker.ordnance.detonation_dud", "Dud");
-        this.add("item.clinker.ordnance.detonation_flechette", "Releases Flechettes");
-        this.add("item.clinker.ordnance.detonation_oil", "Bursts into Oil");
-
-        this.add("item.clinker.ordnance.touch_detonate", "Detonates on Impact");
-        this.add("item.clinker.ordnance.touch_stick", "Sticky");
-        this.add("item.clinker.ordnance.touch_bounce", "Bouncy");
-
-        this.add("item.clinker.ordnance.electrified", "Electrified");
-        this.add("item.clinker.ordnance.trail", "Smoke Trail");
-        this.add("item.clinker.ordnance.potion", "Potion: %s");
-
+        this.addItem(ClinkerItems.ALCHEMISTS_CROSSBOW, "Alchemist's Crossbow");
         this.add("item.clinker.alchemists_crossbow.no_ammo", "Hold ammunition in opposite hand to load.");
         this.add("item.clinker.alchemists_crossbow.primed", "Primed");
         this.add("item.clinker.alchemists_crossbow.repeater", "Repeater Attachment");
         this.add("item.clinker.crossbow_repeater_attachment.instructions", "Attachment for an Alchemist's Crossbow.");
 
+        this.addItem(ClinkerItems.MUSIC_DISC_CODA, "Music Disc");
+        this.add("jukebox_song.clinker.coda", "Squire - CODA");
+
+        this.add("item.clinker.ordnance.fuse_duration", "Fuse lasts %s seconds");
+        this.add("item.clinker.ordnance.detonation_dud", "Dud");
+        this.add("item.clinker.ordnance.detonation_flechette", "Releases Flechettes");
+        this.add("item.clinker.ordnance.detonation_oil", "Bursts into Oil");
+        this.add("item.clinker.ordnance.touch_detonate", "Detonates on Impact");
+        this.add("item.clinker.ordnance.touch_stick", "Sticky");
+        this.add("item.clinker.ordnance.touch_bounce", "Bouncy");
+        this.add("item.clinker.ordnance.electrified", "Electrified");
+        this.add("item.clinker.ordnance.trail", "Smoke Trail");
+        this.add("item.clinker.ordnance.potion", "Potion: %s");
+
         // pages
         this.add("page.clinker.title.blank", "Blank Page");
         this.add("page.clinker.title.test", "Testing Page");
+
+        langData.forEach(super::add);
+    }
+
+    @Override
+    public void add(String key, String name) {
+        String lastName = langData.put(key, name);
+        if (lastName != null) Clinker.LOGGER.info("REPLACING KEY {} FROM {} -> {}", key, lastName, name);
     }
 
     private String localizedNameFromRegistryName(String registryName) {
