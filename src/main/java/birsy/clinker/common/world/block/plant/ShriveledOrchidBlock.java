@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class ShriveledOrchidBlock extends WaterlilyBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-    public static final VoxelShape SHAPE_TOP = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
+    public static final VoxelShape SHAPE_TOP = Block.box(2.0, 0.0, 2.0, 14.0, 12.0, 14.0);
     public static final VoxelShape SHAPE_BOTTOM = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
     private static final Map<DoubleBlockHalf, VoxelShape> COLLISION_SHAPE = ImmutableMap.of(
             DoubleBlockHalf.LOWER,

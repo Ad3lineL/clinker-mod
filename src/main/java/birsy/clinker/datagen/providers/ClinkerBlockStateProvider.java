@@ -874,18 +874,6 @@ public class ClinkerBlockStateProvider extends BlockStateProvider {
                     .partialState().with(ShriveledOrchidBlock.HALF, DoubleBlockHalf.LOWER)
                 .addModels(ConfiguredModel.builder().modelFile(this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + shriveledOrchidName + "_bottom"))).build());
 
-            String shriveledRootsName = name(SHRIVELED_ORCHID_ROOTS.get());
-            ModelFile.ExistingModelFile shriveledRootsModel = this.models().getExistingFile(this.modLoc(ModelProvider.BLOCK_FOLDER + "/" + shriveledRootsName));
-            getVariantBuilder(SHRIVELED_ORCHID_ROOTS.get())
-                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.WEST)
-                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).rotationY(270).build())
-                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.NORTH)
-                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).build())
-                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.EAST)
-                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).rotationY(90).build())
-                    .partialState().with(ShriveledOrchidRootsBlock.FACING, Direction.SOUTH)
-                    .addModels(ConfiguredModel.builder().modelFile(shriveledRootsModel).rotationY(180).build());
-            this.flatBlockItem(SHRIVELED_ORCHID_ROOTS.get(), this.modLoc(ModelProvider.BLOCK_FOLDER + "/shriveled_orchid/" + shriveledRootsName + "_platform_top"));
         }
     }
 

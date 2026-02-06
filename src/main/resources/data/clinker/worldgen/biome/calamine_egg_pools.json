@@ -35,7 +35,9 @@
   "spawn_costs": {},
   "carvers": {},
   "features": [
-    [],
+    [
+      "clinker:calamine_water_pools"
+    ],
     [],
     [
       "clinker:calamine_egg"

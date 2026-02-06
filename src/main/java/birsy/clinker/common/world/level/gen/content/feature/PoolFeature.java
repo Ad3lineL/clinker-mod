@@ -97,7 +97,7 @@ public class PoolFeature extends Feature<PoolFeature.PoolConfiguration> {
                 if (!foundSurface)
                     continue NEXT_BLOCK;
 
-                boolean waterfall = false;//random.nextInt(20) == 0;
+                boolean waterfall = random.nextInt(200) == 0;
                 boolean onUpEdge = false;
                 for (Direction direction : Direction.Plane.HORIZONTAL) {
                     borderCheckPos.set(mPos);

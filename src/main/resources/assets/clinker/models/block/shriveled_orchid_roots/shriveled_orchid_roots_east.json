@@ -1,0 +1,21 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"particle": "clinker:block/shriveled_orchid/shriveled_orchid_roots_partial",
+		"texture": "clinker:block/shriveled_orchid/shriveled_orchid_roots_partial"
+	},
+	"elements": [
+		{
+			"from": [11, 0.25, 0],
+			"to": [16, 0.25, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 11]},
+			"faces": {
+				"up": {"uv": [11, 0, 16, 16], "texture": "#texture"},
+				"down": {"uv": [11, 16, 16, 0], "texture": "#texture"}
+			}
+		}
+	]
+}

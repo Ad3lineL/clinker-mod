@@ -1,0 +1,19 @@
+{
+  "type": "clinker:pool",
+  "config": {
+    "radius":
+    {
+      "type": "clamped_normal",
+      "min_inclusive": 5,
+      "max_inclusive": 12,
+      "mean": 7,
+      "deviation": 4
+    },
+    "state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:water"
+      }
+    }
+  }
+}

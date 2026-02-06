@@ -1,0 +1,41 @@
+{
+    "multipart": [
+        {
+            "when": {
+                "north": "true"
+            },
+            "apply": {
+                "model": "clinker:block/shriveled_orchid_roots/shriveled_orchid_roots_north"
+            }
+        },
+        {
+            "when": {
+                "east": "true"
+            },
+            "apply": {
+                "model": "clinker:block/shriveled_orchid_roots/shriveled_orchid_roots_east"
+            }
+        },
+        {
+            "when": {
+                "south": "true"
+            },
+            "apply": {
+                "model": "clinker:block/shriveled_orchid_roots/shriveled_orchid_roots_south"
+            }
+        },
+        {
+            "when": {
+                "west": "true"
+            },
+            "apply": {
+                "model": "clinker:block/shriveled_orchid_roots/shriveled_orchid_roots_west"
+            }
+        },
+        {
+            "apply": {
+                "model": "clinker:block/shriveled_orchid_roots/shriveled_orchid_roots_center"
+            }
+        }
+    ]
+}

@@ -34,7 +34,7 @@ public class CalamineEggPoolsSurfaceDecorator extends SurfaceDecorator {
         double wiggleNoise = (noiseContext.retrieve(BASE_NOISE_2D[4], x, 0, z) + 0.8) * (noiseContext.retrieve(BASE_NOISE_2D[3], x, 0, z) + 0.1 );
         double wobbleNoise = noiseContext.retrieve(BASE_NOISE_2D_ALT[4], x, 0, z);
 
-        BlockState fluidType = Blocks.WATER.defaultBlockState();
+        BlockState fluidType = ClinkerBlocks.BRIMSTONE.get().defaultBlockState();
 
         BlockState rockType = ClinkerBlocks.CALAMINE.get().defaultBlockState();
         if (wobbleNoise - 0.4 + random.triangle(0, 0.35) > 0) {
